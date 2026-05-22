@@ -14,6 +14,7 @@ import { Route as SigninRouteImport } from './routes/signin'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppLeadsRouteImport } from './routes/_app/leads'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 
 const SignupRoute = SignupRouteImport.update({
@@ -40,6 +41,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppLeadsRoute = AppLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
   '/dashboard': typeof AppDashboardRoute
+  '/leads': typeof AppLeadsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
   '/dashboard': typeof AppDashboardRoute
+  '/leads': typeof AppLeadsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -68,12 +76,19 @@ export interface FileRoutesById {
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/leads': typeof AppLeadsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forgot-password' | '/signin' | '/signup' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/forgot-password'
+    | '/signin'
+    | '/signup'
+    | '/dashboard'
+    | '/leads'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/signin' | '/signup' | '/dashboard'
+  to: '/' | '/forgot-password' | '/signin' | '/signup' | '/dashboard' | '/leads'
   id:
     | '__root__'
     | '/'
@@ -82,6 +97,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/signup'
     | '/_app/dashboard'
+    | '/_app/leads'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/leads': {
+      id: '/_app/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof AppLeadsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
@@ -141,10 +164,12 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppLeadsRoute: typeof AppLeadsRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppLeadsRoute: AppLeadsRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
