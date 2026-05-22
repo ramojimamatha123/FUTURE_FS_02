@@ -14,6 +14,7 @@ import { Route as SigninRouteImport } from './routes/signin'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppNotesRouteImport } from './routes/_app/notes'
 import { Route as AppLeadsRouteImport } from './routes/_app/leads'
 import { Route as AppFollowupsRouteImport } from './routes/_app/followups'
 import { Route as AppEmployeesRouteImport } from './routes/_app/employees'
@@ -42,6 +43,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppNotesRoute = AppNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppLeadsRoute = AppLeadsRouteImport.update({
   id: '/leads',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/employees': typeof AppEmployeesRoute
   '/followups': typeof AppFollowupsRoute
   '/leads': typeof AppLeadsRoute
+  '/notes': typeof AppNotesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/employees': typeof AppEmployeesRoute
   '/followups': typeof AppFollowupsRoute
   '/leads': typeof AppLeadsRoute
+  '/notes': typeof AppNotesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/_app/employees': typeof AppEmployeesRoute
   '/_app/followups': typeof AppFollowupsRoute
   '/_app/leads': typeof AppLeadsRoute
+  '/_app/notes': typeof AppNotesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/employees'
     | '/followups'
     | '/leads'
+    | '/notes'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/employees'
     | '/followups'
     | '/leads'
+    | '/notes'
   id:
     | '__root__'
     | '/'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/_app/employees'
     | '/_app/followups'
     | '/_app/leads'
+    | '/_app/notes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -175,6 +187,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/notes': {
+      id: '/_app/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof AppNotesRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/leads': {
       id: '/_app/leads'
       path: '/leads'
@@ -211,6 +230,7 @@ interface AppRouteChildren {
   AppEmployeesRoute: typeof AppEmployeesRoute
   AppFollowupsRoute: typeof AppFollowupsRoute
   AppLeadsRoute: typeof AppLeadsRoute
+  AppNotesRoute: typeof AppNotesRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -218,6 +238,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppEmployeesRoute: AppEmployeesRoute,
   AppFollowupsRoute: AppFollowupsRoute,
   AppLeadsRoute: AppLeadsRoute,
+  AppNotesRoute: AppNotesRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
