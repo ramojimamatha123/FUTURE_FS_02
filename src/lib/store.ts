@@ -59,7 +59,7 @@ interface DB {
   notifications: boolean;
 }
 
-const KEY = "leadflow-crm-db-v1";
+const KEY = "leadflow-crm-db-v2";
 
 const seedEmployees: Employee[] = [
   { id: "e1", name: "Rahul Sharma", email: "rahul@leadflowcrm.com", phone: "+91 9876543210", role: "Sales Executive", status: "Active" },
@@ -76,6 +76,14 @@ const seedLeads: Lead[] = [
   { id: "L-1002", clientName: "Emma Johnson", email: "emma@gmail.com", phone: "+1 9123456780", company: "Bright Digital", source: "LinkedIn", assignedEmployeeId: "e2", status: "Contacted", followUpDate: future(4), notes: "", createdAt: new Date().toISOString() },
   { id: "L-1003", clientName: "Michael Brown", email: "michael@gmail.com", phone: "+1 9988776655", company: "SkyTech", source: "Referral", assignedEmployeeId: "e1", status: "Interested", followUpDate: future(1), notes: "", createdAt: new Date().toISOString() },
   { id: "L-1004", clientName: "Sophia Wilson", email: "sophia@gmail.com", phone: "+1 9234567810", company: "CloudSync", source: "Instagram", assignedEmployeeId: "e4", status: "Converted", followUpDate: future(10), notes: "", createdAt: new Date().toISOString() },
+  { id: "L-1005", clientName: "David Miller", email: "david.miller@outlook.com", phone: "+1 9345671200", company: "PixelForge", source: "Facebook", assignedEmployeeId: "e2", status: "Contacted", followUpDate: future(3), notes: "Wants pricing deck", createdAt: new Date().toISOString() },
+  { id: "L-1006", clientName: "Olivia Davis", email: "olivia.d@gmail.com", phone: "+1 9456712300", company: "NorthPeak Media", source: "LinkedIn", assignedEmployeeId: "e4", status: "Interested", followUpDate: future(5), notes: "Demo scheduled", createdAt: new Date().toISOString() },
+  { id: "L-1007", clientName: "James Anderson", email: "james.a@yahoo.com", phone: "+1 9567812340", company: "Helix Labs", source: "Website", assignedEmployeeId: "e1", status: "Closed", followUpDate: "", notes: "Not a fit", createdAt: new Date().toISOString() },
+  { id: "L-1008", clientName: "Isabella Martinez", email: "isabella.m@gmail.com", phone: "+1 9678123450", company: "Verdant Group", source: "Referral", assignedEmployeeId: "e2", status: "Converted", followUpDate: future(14), notes: "Closed annual plan", createdAt: new Date().toISOString() },
+  { id: "L-1009", clientName: "William Thompson", email: "will.t@gmail.com", phone: "+1 9789012345", company: "Atlas Robotics", source: "Email", assignedEmployeeId: "e3", status: "New", followUpDate: future(1), notes: "", createdAt: new Date().toISOString() },
+  { id: "L-1010", clientName: "Mia Garcia", email: "mia.g@gmail.com", phone: "+1 9890123456", company: "Lumen Studio", source: "Instagram", assignedEmployeeId: "e4", status: "Contacted", followUpDate: future(2), notes: "Awaiting proposal", createdAt: new Date().toISOString() },
+  { id: "L-1011", clientName: "Benjamin Lee", email: "ben.lee@gmail.com", phone: "+1 9901234567", company: "Orbit Finance", source: "LinkedIn", assignedEmployeeId: "e1", status: "Interested", followUpDate: future(6), notes: "", createdAt: new Date().toISOString() },
+  { id: "L-1012", clientName: "Charlotte Walker", email: "charlotte.w@gmail.com", phone: "+1 9012345670", company: "Brightline AI", source: "Website", assignedEmployeeId: "e2", status: "Converted", followUpDate: future(20), notes: "VIP client", createdAt: new Date().toISOString() },
 ];
 
 const seedUsers: User[] = [

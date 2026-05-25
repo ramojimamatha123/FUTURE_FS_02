@@ -10,6 +10,10 @@ import {
   UserCog,
 } from "lucide-react";
 import {
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+} from "@/components/ui/table";
+import { StatusBadge } from "@/components/leads/StatusBadge";
+import {
   ResponsiveContainer,
   LineChart,
   Line,
@@ -152,6 +156,56 @@ function Dashboard() {
           </div>
         </Card>
       </div>
+
+      <Card className="border-0 shadow-sm overflow-hidden">
+        <div className="p-5 pb-3">
+          <div className="font-semibold">Contact Log — Who Contacted Whom</div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Each client lead and the employee responsible for the contact.
+          </p>
+        </div>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Lead ID</TableHead>
+                <TableHead>Client Name</TableHead>
+                <TableHead className="hidden md:table-cell">Company</TableHead>
+                <TableHead>Contacted By</TableHead>
+                <TableHead className="hidden md:table-cell">Role</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="hidden lg:table-cell">Follow-up</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {leads.map((l) => {
+                const emp = employees.find((e) => e.id === l.assignedEmployeeId);
+                return (
+                  <TableRow key={l.id} className="hover:bg-muted/50">
+                    <TableCell className="font-mono text-xs">{l.id}</TableCell>
+                    <TableCell className="font-medium">{l.clientName}</TableCell>
+                    <TableCell className="hidden md:table-cell text-muted-foreground">{l.company}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <div className="size-7 rounded-full bg-primary/10 text-primary grid place-items-center text-xs font-semibold">
+                          {emp ? emp.name.charAt(0) : "—"}
+                        </div>
+                        <span className="text-sm">{emp?.name ?? "Unassigned"}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell text-sm text-muted-foreground">{emp?.role ?? "—"}</TableCell>
+                    <TableCell><StatusBadge status={l.status} /></TableCell>
+                    <TableCell className="hidden lg:table-cell text-sm">{l.followUpDate || "—"}</TableCell>
+                  </TableRow>
+                );
+              })}
+              {leads.length === 0 && (
+                <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-10">No contacts yet</TableCell></TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </Card>
     </div>
   );
 }
